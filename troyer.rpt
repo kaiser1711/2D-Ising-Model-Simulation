@@ -1,0 +1,10 @@
+./an_ms_r1_nf_omp -l instance503.txt -s 2000 -v -t 14 -g -r 7872
+#lin schedule: nsweeps=2000 b0=0.1 b1=3; rep0=0 nreps=7872
+#algorithm: multi-spin, range-1 couplings, without fields
+#running 14 omp threads
+#init done in 0.00113297 s
+#work done in 2.78402 s
+      -867     14596       0.0289714    instance503.txt
+#outp done in 0.00831199 si
+
+2000*7872*503/2.78/1e9 = 2.8486446043165468 spin flips / ns 
