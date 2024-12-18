@@ -2,8 +2,7 @@ CXX = clang++
 CXXFLAGS = -O3 -ffast-math -march=native -std=c++20
 
 # List all your source files here
-SOURCES = ising_checkerboard_threads_dispatch.cc \
-          ising_checkerboard_64_sims.cc \
+SOURCES = ising_checkerboard_64_sims.cc \
 		  ising_basic.cc \
 		  ising_Xorshiro.cc \
 		  ising_checkerboard.cc \
