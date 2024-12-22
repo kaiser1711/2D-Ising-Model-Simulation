@@ -27,8 +27,8 @@ performance = [
     1.64E+08,  
     2.05E+08,   
     3.25E+08,
-    8.45E+08,
-    7.37E+09,
+    1.54E+09,
+    2.79E+10,
     2.84E+09,
 ]
 
@@ -90,43 +90,26 @@ for v, p in zip(versions[1:], performance[1:]):
 threads = np.arange(1, 15)
 
 ### Threading benchmark
-performance_threads = [ 1.01E+08,
-                        1.88E+08,
-                        2.78E+08,
-                        3.59E+08,
-                        2.99E+08,
-                        3.73E+08,
-                        4.24E+08,
-                        4.49E+08,
-                        4.93E+08,
-                        4.92E+08,
-                        5.39E+08,
-                        5.55E+08,
-                        6.44E+08,
-                        8.45E+08]
-
-performance_64_sims = [3.41E+09,
-                        4.86E+09,
-                        5.81E+09,
-                        6.34E+09,
-                        5.63E+09,
-                        6.22E+09,
-                        6.33E+09,
-                        6.59E+09,
-                        6.86E+09,
-                        7.28E+09,
-                        6.95E+09,
-                        6.96E+09,
-                        6.77E+09,
-                        7.37E+09]
+performance_threads = [ 1.61E+08,
+                        3.13E+08,
+                        4.50E+08,
+                        5.64E+08,
+                        4.51E+08,
+                        6.54E+08,
+                        7.49E+08,
+                        8.26E+08,
+                        9.02E+08,
+                        9.98E+08,
+                        1.03E+09,
+                        1.11E+09,
+                        1.24E+09,
+                        1.54E+09]
 
 # Plotting
 plt.figure(figsize=(10, 6))
 plt.plot(threads, 3.25E+08  * np.ones(14), label="Xorshiro")
 plt.plot(threads, performance_threads, marker='o', label="Simple Multithreading")
 plt.plot(threads, performance_threads[0] * np.arange(1,15), marker='d', linestyle = 'dashed', label="Linear improvement")
-
-#plt.plot(threads, performance_64_sims, marker='d', label="Performance 64 sims")
 
 # Labels and legend
 plt.title("Performance vs Threads", fontsize=16)

@@ -82,7 +82,7 @@ void run_simulation(std::ofstream &prof_file) {
         update_spins(spins, 0, gen);  // Update black sites
         update_spins(spins, 1, gen);  // Update white sites
         
-        if (step % 1 == 0) {
+        if (step % 10 == 0) {
             prof_file << "Step " << step << " Magnetization: " 
                      << magnetization(spins) << "\n";
         }

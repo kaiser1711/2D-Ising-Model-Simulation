@@ -85,17 +85,17 @@ void initialize_exp_lookup(double T) {
 // Initialize spins for all parallel simulations with 75% probability of +1
 void initialize_spins(std::vector<SpinBlock> &spin_blocks) {
     const double prob = 0.75;  // Probability of +1 spin
-    
+    Xorshiro& local_rng = rng;  // Get TLS reference once at the start of thread
+
     for (int i = 0; i < N; ++i) {
         uint64_t block = 0;
         
         // Generate 64 random values and set bits based on probability
         for (int bit = 0; bit < 64; ++bit) {
-            if (rng.next() % 100 < prob * 100) {  // Using integer arithmetic for speed
+            if (local_rng.next() % 100 < prob * 100) {  // Using integer arithmetic for speed
                 block |= (1ULL << bit);
             }
         }
-        
         spin_blocks[i].spins = block;
     }
 }
@@ -229,7 +229,7 @@ void run_simulation(int num_threads, std::ofstream &prof_file) {
         update_spins(spins, 0, num_threads, dispatch_queue);
         update_spins(spins, 1, num_threads, dispatch_queue);
 
-        if (i % 1 == 0) {
+        if (i % 10 == 0) {
             if(PRINT_MAGNETIZATION) {
                 mags = magnetization(spins);
                 prof_file << "Step " << i << " Magnetization (sim 0): " << mags[0] << "\n";

@@ -82,9 +82,9 @@ void run_simulation(std::ofstream &prof_file) {
         }
         
         // Print magnetization every 10 steps
-        if (step % 1 == 0) {
-            std::cout << "Step " << step << " Magnetization: " 
-                     << magnetization(spins) << "\n";
+        if (step % 10 == 0) {
+            //std::cout << "Step " << step << " Magnetization: " 
+            //         << magnetization(spins) << "\n";
             prof_file << "Step " << step << " Magnetization: " 
                      << magnetization(spins) << "\n";
         }

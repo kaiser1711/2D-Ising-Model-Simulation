@@ -76,8 +76,9 @@ thread_local Xorshiro rng(std::random_device{}());
 
 // Function to initialize spins with more -1 values
 void initialize_spins(std::vector<int>& spins) {
+    Xorshiro& local_rng = rng;  // Get TLS reference once at the start of thread
     for (int i = 0; i < N; ++i) {
-        spins[i] = (rng.next_double() < 0.25) ? -1 : 1;
+        spins[i] = (local_rng.next_double() < 0.25) ? -1 : 1;
     }
 }
 
@@ -147,7 +148,7 @@ void run_simulation(int num_threads, std::ofstream &prof_file) {
 
     initialize_exp_lookup(T);
     // Profile initialization
-  auto init_start_time = std::chrono::high_resolution_clock::now();  // Start profiling initialization
+    auto init_start_time = std::chrono::high_resolution_clock::now();  // Start profiling initialization
     initialize_spins(spins);
     auto init_end_time = std::chrono::high_resolution_clock::now();  // End profiling initialization
     std::chrono::duration<double> init_duration = init_end_time - init_start_time;
@@ -162,7 +163,7 @@ void run_simulation(int num_threads, std::ofstream &prof_file) {
         update_spins(spins, 0, num_threads, dispatch_queue);  // Update black sites
         update_spins(spins, 1, num_threads, dispatch_queue);  // Update white sites
         
-        if (step % 1 == 0) {
+        if (step % 10 == 0) {
             prof_file << "Step " << step << " Magnetization: " 
                      << magnetization(spins) << "\n";
         }
@@ -192,7 +193,7 @@ int main() {
     // Open CSV file for profiling data
     std::ofstream prof_file("profiling_data_threads.csv");
 
-    for (int num_threads = NUM_THREADS; num_threads <= NUM_THREADS; ++num_threads) {
+    for (int num_threads = 1; num_threads <= NUM_THREADS; ++num_threads) {
         run_simulation(num_threads, prof_file);
     }
     
