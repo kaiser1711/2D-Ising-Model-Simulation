@@ -151,11 +151,11 @@ std::vector<uint64_t> delta_energy(const std::vector<SpinBlock> &spins, int x, i
 }
 
 // Monte Carlo step for all simulations simultaneously
-void monte_carlo_step(std::vector<SpinBlock>& spin_blocks, int x, int y) {
+void monte_carlo_step(std::vector<SpinBlock>& spin_blocks, int x, int y, Xorshiro& local_rng) {
     std::vector<uint64_t> dE = delta_energy(spin_blocks, x, y);
     
    // Generate random bits for acceptance probabilities
-    double rand_bits = rng.next_double();
+    double rand_bits = local_rng.next_double();
     // Always accept negative dE
     uint64_t flip_mask = dE[0] | dE[1];
     // Accept positive dE based on exp_lookup probabilities
@@ -192,11 +192,12 @@ void update_spins(std::vector<SpinBlock> &spins, int color, int num_threads, Dis
 
     for (int thread_id = 0; thread_id < num_threads; ++thread_id) {
         dispatch_queue->dispatch([&,thread_id] (int) {
+            Xorshiro& local_rng = rng;  // Get TLS reference once at the start of thread
             for (int idx = thread_id * sites_per_thread; idx < (thread_id + 1) * sites_per_thread; ++idx) {
                 int x = idx / L;
                 int y = idx % L;
                 if ((x + y) % 2 == color) {
-                    monte_carlo_step(spins, x, y);
+                    monte_carlo_step(spins, x, y, local_rng);
                 }
             }
         });

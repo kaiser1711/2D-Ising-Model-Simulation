@@ -3,3 +3,4 @@ old
 data
 .DS_Store
 venv
+run.sh

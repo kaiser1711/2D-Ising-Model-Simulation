@@ -99,11 +99,11 @@ int delta_energy(const std::vector<int>& spins, int x, int y) {
 }
 
 // Function to perform one Monte Carlo step for a single spin
-void monte_carlo_step(std::vector<int>& spins, int x, int y, int idx) {
+void monte_carlo_step(std::vector<int>& spins, int x, int y, int idx, Xorshiro& local_rng) {
     int dE = delta_energy(spins, x, y);
            
     // Use pre-computed exponentials
-    if (dE <= 0 || rng.next_double() < exp_lookup[dE + MAX_DE]) {
+    if (dE <= 0 || local_rng.next_double() < exp_lookup[dE + MAX_DE]) {
         spins[x * L + y] *= -1;
     }
 }
@@ -125,13 +125,14 @@ void update_spins(std::vector<int> &spins, int color, int num_threads, DispatchQ
 
     for (int thread_id = 0; thread_id < num_threads; ++thread_id) {
         dispatch_queue->dispatch([&,thread_id] (int) {
+            Xorshiro& local_rng = rng;  // Get TLS reference once at the start of thread
             for (int index = thread_id * spins_per_thread; index < (thread_id + 1) * spins_per_thread; ++index) {
                   // Calculate the global index of the spin
                 int x = index / L;              // Calculate x coordinate
                 int y = index % L;              // Calculate y coordinate
 
                 if ((x + y) % 2 == color) {     // Update only for the specified color
-                    monte_carlo_step(spins, x, y, index);
+                    monte_carlo_step(spins, x, y, index, local_rng);
                 }   
             }
         });
@@ -191,7 +192,7 @@ int main() {
     // Open CSV file for profiling data
     std::ofstream prof_file("profiling_data_threads.csv");
 
-    for (int num_threads = 1; num_threads <= NUM_THREADS; ++num_threads) {
+    for (int num_threads = NUM_THREADS; num_threads <= NUM_THREADS; ++num_threads) {
         run_simulation(num_threads, prof_file);
     }
     
