@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.patches import Patch
 
+font = 30
+
 # Set style
 plt.style.use('seaborn-v0_8-darkgrid')
 sns.set_palette("husl")
@@ -11,13 +13,13 @@ plt.rcParams['font.family'] = 'DejaVu Sans'
 
 # Data
 versions = [
-    "Basic Implementatio, 1 Threads",
-    "Checkerboard Pattern, 1 Threads",
-    "Exp lookup, 1 Threads",
-    "Xorshiro RNG, 1 Threads",
-    "Simple Threading, 14 Threads",
-    "Bit-parallel (64 sims), 14 Threads",
-    "Troyer, 14 Threads"
+    "Basic, 1",
+    "Checkerboard, 1",
+    "Exp lookup, 1",
+    "Xorshiro RNG, 1",
+    "Threading, 14",
+    "Bit-parallel, 14",
+    "Troyer, 14"
 ]
 
 # Performance numbers (spin flips per second)
@@ -61,17 +63,18 @@ for i, bar in enumerate(bars):
     height = bar.get_height()
     ax1.text(bar.get_x() + bar.get_width()/2., height,
              f'{height:.3f}',
-             ha='center', va='bottom', fontsize=10, fontweight='bold')
+             ha='center', va='bottom', fontsize=12, fontweight='bold')
 
 # Customize the plot
-ax1.set_title('Ising Model Performance Optimization Progress, CPU M4 Pro with 14 cores', pad=20, fontsize=16, fontweight='bold')
-ax1.set_ylabel('Spin Flips per Nanosecond', fontsize=12, fontweight='bold')
-ax1.tick_params(axis='x', rotation=45, labelsize=10)
+#ax1.set_title('Ising Model Performance Optimization Progress, CPU M4 Pro with 14 cores', pad=20, fontsize=16, fontweight='bold')
+ax1.set_ylabel('Spin Flips per ns', fontsize=font, fontweight='bold')
+ax1.tick_params(axis='x', rotation=45, labelsize=font)
 ax1.set_yscale('log')
 ax1.grid(True, alpha=0.3)
+ax1.tick_params(axis='y', labelsize=font)
 
 # Overall layout adjustments
-plt.gcf().set_size_inches(20, 12)
+plt.gcf().set_size_inches(10, 6)
 plt.tight_layout()
 
 # Save the plot
@@ -105,19 +108,22 @@ performance_threads = [ 1.61E+08,
                         1.24E+09,
                         1.54E+09]
 
+performance_threads_ns = [p / 1e9 for p in performance_threads] # to nanoseconds
+
 # Plotting
 plt.figure(figsize=(10, 6))
-plt.plot(threads, 3.25E+08  * np.ones(14), label="Xorshiro")
-plt.plot(threads, performance_threads, marker='o', label="Simple Multithreading")
-plt.plot(threads, performance_threads[0] * np.arange(1,15), marker='d', linestyle = 'dashed', label="Linear improvement")
+plt.plot(threads, 3.25E+08/1e9  * np.ones(14), label="Xorshiro")
+plt.plot(threads, performance_threads_ns, marker='o', label="Simple Multithreading")
+plt.plot(threads, performance_threads_ns[0] * np.arange(1,15), marker='d', linestyle = 'dashed', label="Linear improvement")
 
 # Labels and legend
-plt.title("Performance vs Threads", fontsize=16)
-plt.xlabel("Number of Threads", fontsize=14)
-plt.ylabel("Spin Flips per Seconds", fontsize=14)
-plt.xticks(threads)
+#plt.title("Performance vs Threads", fontsize=16)
+plt.xlabel("Number of Threads", fontsize=font)
+plt.ylabel("Spin Flips per ns", fontsize=font)
+plt.yticks(fontsize=font)
+plt.xticks(threads,fontsize=font)
 plt.grid(alpha=0.3)
-plt.legend(fontsize=12)
+plt.legend(fontsize=25)
 #plt.yscale('log')
 
 plt.tight_layout()
