@@ -14,9 +14,9 @@ plt.rcParams['font.family'] = 'DejaVu Sans'
 # Data
 versions = [
     "Basic, 1",
-    "Checkerboard, 1",
+    "Checkerb., 1",
     "Exp lookup, 1",
-    "Xorshiro RNG, 1",
+    "Xorshiro, 1",
     "Threading, 14",
     "Bit-parallel, 14",
     "Troyer, 14"
@@ -68,7 +68,7 @@ for i, bar in enumerate(bars):
 # Customize the plot
 #ax1.set_title('Ising Model Performance Optimization Progress, CPU M4 Pro with 14 cores', pad=20, fontsize=16, fontweight='bold')
 ax1.set_ylabel('Spin Flips per ns', fontsize=font, fontweight='bold')
-ax1.tick_params(axis='x', rotation=45, labelsize=font)
+ax1.tick_params(axis='x', rotation=60, labelsize=25)
 ax1.set_yscale('log')
 ax1.grid(True, alpha=0.3)
 ax1.tick_params(axis='y', labelsize=font)
