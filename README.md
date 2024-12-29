@@ -25,8 +25,8 @@ The optimization journey includes several key stages:
 - Checkerboard Updates: ~10x speedup
 - Exponential Lookup: ~12x speedup
 - Xorshiro RNG: ~20x speedup
-- Multithreading: ~50x speedup
-- Multi-spin Updates: ~450x speedup
+- Multithreading: ~90x speedup
+- Multi-spin Updates: ~1700x speedup
 
 ![Ising Model Performance Optimization Progress](ising_optimization_progress.png)
 
