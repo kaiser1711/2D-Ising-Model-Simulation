@@ -30,9 +30,9 @@ The optimization journey includes several key stages:
 - Xorshiro RNG: ~20x speedup
 - Multithreading: ~90x speedup
 - Multi-spin Updates: ~1700x speedup
-- Troyer Updates: ~175 speedup
-- Apple Metal: ~385 speedup
-- Apple Metal, Multi-spin: ~9070 speedup
+- Troyer Updates: ~175x speedup
+- Apple Metal: ~385x speedup
+- Apple Metal, Multi-spin: ~9070x speedup
 
 ### Plot
 ![Ising Model Performance Optimization Progress](ising_optimization_progress.png)
