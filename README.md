@@ -19,8 +19,8 @@ The optimization journey includes several key stages:
 5. **Multithreading**: Utilizing multiple CPU cores
 6. **Multi-spin Updates**: Parallel 64-spin simulation using bitwise operations
 7. **Troyer**: Running code from Isakov et al. (https://doi.org/10.48550/arXiv.1401.1084)
-8. **Apple Metal**: Utilizing graphics processing capabilities.
-9. **Apple Metal Multi-spin**: Utilizing graphics processing capabilities with Multi-spin updates.
+8. **Apple Metal**: Utilizing graphics processing capabilities
+9. **Apple Metal Multi-spin**: Utilizing graphics processing capabilities with Multi-spin updates
 
 ### Performance Metrics
 
