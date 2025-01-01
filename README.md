@@ -18,6 +18,9 @@ The optimization journey includes several key stages:
 4. **Xorshiro Random Number Generator**: Faster random number generation
 5. **Multithreading**: Utilizing multiple CPU cores
 6. **Multi-spin Updates**: Parallel 64-spin simulation using bitwise operations
+7. **Troyer**: Running code from Isakov et al. (https://doi.org/10.48550/arXiv.1401.1084)
+8. **Apple Metal**: Utilizing graphics processing capabilities.
+9. **Apple Metal Multi-spin**: Utilizing graphics processing capabilities with Multi-spin updates.
 
 ### Performance Metrics
 
@@ -27,6 +30,10 @@ The optimization journey includes several key stages:
 - Xorshiro RNG: ~20x speedup
 - Multithreading: ~90x speedup
 - Multi-spin Updates: ~1700x speedup
+- Troyer Updates: ~175 speedup
+- Apple Metal: ~385 speedup
+- Apple Metal, Multi-spin: ~9070 speedup
 
+### Plot
 ![Ising Model Performance Optimization Progress](ising_optimization_progress.png)
 
