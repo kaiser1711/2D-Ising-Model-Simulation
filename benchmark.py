@@ -17,9 +17,11 @@ versions = [
     "Checkerb., 1",
     "Exp lookup, 1",
     "Xorshiro, 1",
-    "Threading, 14",
+    "Threads, 14",
     "Bit-parallel, 14",
-    "Troyer, 14"
+    "Troyer, 14",
+    "Metal, 1 S",
+    "Metal, 64 S"
 ]
 
 # Performance numbers (spin flips per second)
@@ -32,6 +34,8 @@ performance = [
     1.54E+09,
     2.79E+10,
     2.84E+09,
+    6.24E+09,
+    1.47E+11
 ]
 
 performance_ns = [p / 1e9 for p in performance] # to nanoseconds
@@ -44,7 +48,9 @@ optimizations = [
     "Fast Xorshiro random number generator",
     "Multithreading",
     "64 parallel simulations using bit operations",
-    "Troyer"
+    "Troyer",
+    "Apple Metal",
+    "Apple Metal 64"
 ]
 
 # Create figure and axis
@@ -68,10 +74,23 @@ for i, bar in enumerate(bars):
 # Customize the plot
 #ax1.set_title('Ising Model Performance Optimization Progress, CPU M4 Pro with 14 cores', pad=20, fontsize=16, fontweight='bold')
 ax1.set_ylabel('Spin Flips per ns', fontsize=font, fontweight='bold')
-ax1.tick_params(axis='x', rotation=60, labelsize=25)
+ax1.tick_params(axis='x', rotation=90, labelsize=25)
+
 ax1.set_yscale('log')
 ax1.grid(True, alpha=0.3)
 ax1.tick_params(axis='y', labelsize=font)
+
+# Example of adding a vertical line
+vertical_line_x = 6.5  # x-coordinate where the vertical line will be drawn
+ax1.axvline(x=vertical_line_x, color='black', linestyle='--', linewidth=2, label='Optimization Milestone')
+
+# Adding text annotations
+ax1.text(vertical_line_x + 0.5, max(performance_ns)*0.8, 'GPU',
+         color='black', fontsize=14, fontweight='bold', ha='center')
+
+# Adding text annotations
+ax1.text(vertical_line_x - 0.5, max(performance_ns)*0.8, 'CPU',
+         color='black', fontsize=14, fontweight='bold', ha='center')
 
 # Overall layout adjustments
 plt.gcf().set_size_inches(10, 6)
