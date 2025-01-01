@@ -1,4 +1,4 @@
-# High-Performance 2D Ising Model Simulation on CPU
+# High-Performance 2D Ising Model Simulation
 
 ## Overview
 
