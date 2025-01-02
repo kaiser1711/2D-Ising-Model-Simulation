@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains a highly optimized C++ implementation of a 2D Ising model simulation, demonstrating progressive performance improvements from a basic implementation to a highly parallelized version capable of achieving up to 1 billion spin-flips per second on a laptop.
+This repository contains an optimized C++ implementation of a 2D Ising model simulation, demonstrating progressive performance improvements from a basic implementation to a highly parallelized version capable of achieving up to 1 billion spin-flips per second on a laptop.
 
 ## Background
 
